@@ -41,6 +41,18 @@ for (const surface of SURFACES) {
     expect(await ui.drawn()).toMatchObject({ type: 'Box' })
   })
 
+  test(`draws a user bubble for a collapsed prompt row on ${surface}`, async ($, on) => {
+    bottoms(on)
+    const ui = await $.ui.mount({
+      plugin: 'chat-bubbles',
+      surface,
+      component: 'UserMessage',
+      props: { text: 'hola', origin: { kind: 'unclassified' }, isExpanded: false },
+      viewport: VIEWPORT,
+    } as never)
+    expect(await ui.drawn()).toMatchObject({ type: 'Box' })
+  })
+
   test(`draws a Claude bubble on ${surface}`, async ($, on) => {
     bottoms(on)
     const ui = await $.ui.mount({

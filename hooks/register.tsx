@@ -54,7 +54,7 @@ export const register: Register = on => {
   })
 
   on('ui.render', { component: 'UserMessage' }, async ($, e, next) => {
-    if (e.props.origin.kind !== 'composer' || !e.props.isExpanded) return next(e)
+    if (e.props.task || e.props.from || e.props.origin.kind === 'task-notification') return next(e)
     const time = formatTime(await remember($, e.requestId))
     const { Box, Text } = $.ui.resolve(e)
 
@@ -67,11 +67,11 @@ export const register: Register = on => {
           paddingX={1}
           width={bubbleWidth(e.viewport?.columns)}
         >
-          <Text color={USER_COLOR} bold>Tú</Text>
-          <Text>{stripStamp(e.props.text)}</Text>
-          <Box justifyContent="flex-end">
+          <Box flexDirection="row" justifyContent="space-between">
+            <Text color={USER_COLOR} bold>Tú</Text>
             <Text dimColor>{time} ✓✓</Text>
           </Box>
+          <Text>{stripStamp(e.props.text)}</Text>
         </Box>
       </Box>
     )
@@ -79,7 +79,7 @@ export const register: Register = on => {
 
   on('ui.render', { component: 'AssistantMessage' }, async ($, e, next) => {
     if (e.props.isSummary) return next(e)
-    const time = formatTime(await remember($, e.requestId))
+    const time = e.props.isFirstOfReply ? formatTime(await remember($, e.requestId)) : ''
     const { Box, Text, Markdown } = $.ui.resolve(e)
 
     return (
@@ -91,11 +91,13 @@ export const register: Register = on => {
           paddingX={1}
           width={bubbleWidth(e.viewport?.columns)}
         >
-          {e.props.isFirstOfReply ? <Text color={CLAUDE_COLOR} bold>Claude</Text> : null}
+          {e.props.isFirstOfReply ? (
+            <Box flexDirection="row" justifyContent="space-between">
+              <Text color={CLAUDE_COLOR} bold>Claude</Text>
+              <Text dimColor>{time}</Text>
+            </Box>
+          ) : null}
           <Markdown text={stripStamp(e.props.text)} />
-          <Box justifyContent="flex-end">
-            <Text dimColor>{time}</Text>
-          </Box>
         </Box>
       </Box>
     )

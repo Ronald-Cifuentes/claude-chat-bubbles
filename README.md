@@ -4,19 +4,17 @@ A Claude Code mod that draws the transcript like a messaging-app chat:
 
 ```
                           ╭──────────────────────────────╮
-                          │ Tú                           │
+                          │ Tú           16/10/26 10:05 ✓✓│
                           │ hola, ¿cómo vas?             │
-                          │             16/10/26 10:05 ✓✓│
                           ╰──────────────────────────────╯
 ╭──────────────────────────────╮
-│ Claude                       │
+│ Claude        16/10/26 10:05 │
 │ Bien. ¿Qué hacemos?          │
-│               16/10/26 10:05 │
 ╰──────────────────────────────╯
 ```
 
-- Your messages: a green bubble on the right, with the time and ✓✓.
-- Claude's replies: a bubble in Claude's color on the left, markdown kept.
+- Your messages: a green bubble on the right, with the time and ✓✓ beside your name.
+- Claude's replies: a bubble in Claude's color on the left, the time beside the name, markdown kept.
 - Each bubble takes three quarters of the terminal width and follows a resize.
 - Colors come from your Claude Code theme, so light and dark themes both work.
 - Tool calls, notifications and messages from other agents draw as usual.
