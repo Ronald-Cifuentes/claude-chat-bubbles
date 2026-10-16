@@ -1,0 +1,6 @@
+{
+  "name": "claude-chat-bubbles",
+  "owner": { "name": "Ronald Cifuentes" },
+  "description": "A messaging-app look for the Claude Code transcript.",
+  "plugins": [{ "name": "chat-bubbles", "source": "./" }]
+}
